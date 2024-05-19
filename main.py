@@ -40,7 +40,12 @@ class Record:
     def find_phone(self, phone):
         for p in self.phones:
             if p.value == phone:
-                return p.value
+                return p
+
+    def remove_phone(self, phone):
+        matching_phone = next((p for p in self.phones if p.value == phone), None)
+        if matching_phone is not None:
+            self.phones.remove(matching_phone)
 
 
 class AddressBook(UserDict):
@@ -85,5 +90,7 @@ print(john)  # Виведення: Contact name: John, phones: 1112223333; 55555
 found_phone = john.find_phone("5555555555")
 print(f"{john.name}: {found_phone}")  # Виведення: John: 5555555555
 
+john.remove_phone("5555555555")
+print(john)
 # Видалення запису Jane
 book.delete("Jane")
